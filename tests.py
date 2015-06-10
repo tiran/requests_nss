@@ -26,16 +26,23 @@ import requests
 
 from requests_nss import NSSTransportAdapter
 
-
-with requests.Session() as s:
-    s.mount('https://', NSSTransportAdapter(dbdir='sql:pki'))
-    s.mount('http://', NSSTransportAdapter(dbdir='sql:pki'))
-    req = s.get('https://www.redhat.com')
-    print(req)
-    req = s.get('http://www.redhat.com')
-    print(req)
-
+def demo():
+    with requests.Session() as s:
+        ta = NSSTransportAdapter(dbdir='sql:pki')
+        s.mount('https://', ta)
+        s.mount('http://', ta)
+        for url in ('https://www.redhat.com', 'http://www.redhat.com'):
+            logging.info("*** REQUESTING %s", url)
+            req = s.get(url)
+            logging.info(req)
+            logging.info(req.headers)
+            logging.debug(req.text[:300])
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s %(levelname)-8s %(message)s',
+        datefmt='%H:%M:%S'
+        )
+    demo()
     # unittest.main()

@@ -21,7 +21,6 @@
 
 import socket
 
-
 from requests.packages.urllib3.connectionpool import HTTPConnectionPool
 from requests.packages.urllib3.poolmanager import PoolManager
 from requests.packages.urllib3.util.timeout import Timeout
