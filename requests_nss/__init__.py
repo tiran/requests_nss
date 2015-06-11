@@ -20,6 +20,6 @@
 # THE SOFTWARE.
 
 
-__all__ = ('NSSTransportAdapter', )
+__all__ = ('NSSTransportAdapter', 'initialize_nss')
 
-from .nssta import NSSTransportAdapter
+from .nssta import NSSTransportAdapter, initialize_nss

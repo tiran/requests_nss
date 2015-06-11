@@ -24,14 +24,16 @@ import logging
 
 import requests
 
-from requests_nss import NSSTransportAdapter
+from requests_nss import NSSTransportAdapter, initialize_nss
+
+initialize_nss(dbdir='sql:pki')
 
 def demo():
     with requests.Session() as s:
-        ta = NSSTransportAdapter(dbdir='sql:pki')
+        ta = NSSTransportAdapter()
         s.mount('https://', ta)
         s.mount('http://', ta)
-        for url in ('https://www.redhat.com', 'http://www.redhat.com'):
+        for url in ('https://www.redhat.com', 'http://www.redhat.com', 'https://www.redhat.com'):
             logging.info("*** REQUESTING %s", url)
             req = s.get(url)
             logging.info(req)
